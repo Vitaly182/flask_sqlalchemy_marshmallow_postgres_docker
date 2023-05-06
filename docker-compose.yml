@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  app:
+    build: ./app
+    container_name: flask_app
+    restart: unless-stopped
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13-alpine
+    container_name: flask_postgres
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=pet_clinic
+    volumes:
+      - flask_db:/var/lib/postgresql/data/
+
+volumes:
+    flask_db:
