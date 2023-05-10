@@ -40,7 +40,7 @@ class ClientsSearchUrls(Resource):
     def get(self, search_clients):
         clients = Clients.query.filter(Clients.first_name.like('%'+search_clients+'%')).all()
         if clients:
-            all_clients = client_schema.dump(clients)
+            all_clients = clients_schema.dump(clients)
             return {"status": 200, "message": all_clients}, 200
         else:
             return []
